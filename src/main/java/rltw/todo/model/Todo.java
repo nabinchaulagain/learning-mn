@@ -1,8 +1,17 @@
 package rltw.todo.model;
 
+import io.micronaut.core.annotation.Introspected;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+
+@Introspected
 public class Todo {
     private long id;
 
+    @NotEmpty(message = "Todo text is required")
     private String text;
 
     private boolean isCompleted;
