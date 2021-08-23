@@ -1,3 +1,6 @@
 micronaut:
   application:
     name: todoTest
+  server:
+    cors:
+      enabled: true
