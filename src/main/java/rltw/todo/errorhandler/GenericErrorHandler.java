@@ -14,10 +14,12 @@ import java.util.stream.Collectors;
 public class GenericErrorHandler implements ExceptionHandler<Exception,HttpResponse>{
 
     @Override
-    public HttpResponse handle(HttpRequest request, Exception exception) {
+    public HttpResponse handle(HttpRequest request, Exception exception)  {
         Map<String,Object> response = new HashMap<>();
         response.put("error",exception.getMessage());
         response.put("stackTrace",this.getExceptionStackTrace(exception));
+
+        exception.printStackTrace();
 
         return HttpResponse.serverError(response);
     }
