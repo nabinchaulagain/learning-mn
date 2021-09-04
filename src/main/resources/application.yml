@@ -4,3 +4,20 @@ micronaut:
   server:
     cors:
       enabled: true
+    port: "${PORT}"
+datasources:
+  default:
+    url: "${DB_CONN_URL}"
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: "${DB_USERNAME}"
+    password: "${DB_PASSWORD}"
+    dialect: org.hibernate.dialect.Oracle10gDialect
+jpa:
+  default:
+    packages-to-scan:
+      - 'rltw.todo'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true

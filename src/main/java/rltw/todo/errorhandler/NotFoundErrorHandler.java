@@ -17,6 +17,6 @@ public class NotFoundErrorHandler implements ExceptionHandler<NotFoundException,
         Map<String,String> response = new HashMap<>();
         response.put("message",exception.getEntityName() + " not found.");
 
-        return HttpResponse.badRequest(response);
+        return HttpResponse.notFound(response);
     }
 }

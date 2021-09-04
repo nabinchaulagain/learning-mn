@@ -6,6 +6,8 @@ plugins {
 version = "0.1"
 group = "rltw.todo"
 
+apply plugin: 'java'
+
 repositories {
     mavenCentral()
 }
@@ -27,6 +29,9 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
     implementation ("com.google.code.gson:gson:2.8.8")
+    implementation files("libs/ojdbc7.jar")
+    implementation group: 'io.micronaut.data', name: 'micronaut-data-hibernate-jpa', version: '3.0.0'
+    implementation group: 'io.micronaut.configuration', name: 'micronaut-jdbc-hikari', version: '2.2.6'
 }
 
 

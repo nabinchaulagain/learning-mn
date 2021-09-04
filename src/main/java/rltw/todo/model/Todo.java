@@ -2,18 +2,25 @@ package rltw.todo.model;
 
 import io.micronaut.core.annotation.Introspected;
 
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
 
+@Entity(name="todos")
 @Introspected
 public class Todo {
+    @Id
+    @GeneratedValue
     private long id;
 
+    @Column(name="text")
     @NotEmpty(message = "Todo text is required")
     private String text;
 
+    @Column(name="is_completed")
     private boolean isCompleted;
 
     public long getId() {
