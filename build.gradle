@@ -30,6 +30,8 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
     implementation ("com.google.code.gson:gson:2.8.8")
     implementation files("libs/ojdbc7.jar")
+    implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation "org.mindrot:jbcrypt:0.4"
     implementation group: 'io.micronaut.data', name: 'micronaut-data-hibernate-jpa', version: '3.0.0'
     implementation group: 'io.micronaut.configuration', name: 'micronaut-jdbc-hikari', version: '2.2.6'
 }

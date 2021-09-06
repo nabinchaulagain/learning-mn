@@ -13,3 +13,5 @@ out/
 .classpath
 .factorypath
 src/main/resources/todos.json
+.env
+

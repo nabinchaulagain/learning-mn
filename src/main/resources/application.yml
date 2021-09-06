@@ -1,6 +1,20 @@
 micronaut:
   application:
     name: todoTest
+  security:
+    authentication: bearer
+    token:
+      jwt:
+        generator:
+          access-token:
+            expiration: 8640000
+        signatures:
+          secret:
+            generator:
+              secret: "${JWT_SECRET}"
+    endpoints:
+      login:
+        path: "/api/auth/login"
   server:
     cors:
       enabled: true
