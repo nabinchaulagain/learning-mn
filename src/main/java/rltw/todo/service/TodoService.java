@@ -3,6 +3,7 @@ package rltw.todo.service;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import rltw.todo.error.NotFoundException;
+import rltw.todo.error.UnauthorizedActionException;
 import rltw.todo.model.Todo;
 import rltw.todo.repository.TodoRepository;
 
@@ -15,11 +16,15 @@ public class TodoService {
     @Inject
     TodoRepository todoRepository;
 
-    public Todo getTodo(long id) throws NotFoundException {
+    public Todo getTodo(long userId, long id) throws NotFoundException,UnauthorizedActionException {
         Optional<Todo> todoOptional = todoRepository.findById(id);
 
         if(todoOptional.isEmpty()){
             throw new NotFoundException("Todo");
+        }
+
+        if(todoOptional.get().getUserId() != userId){
+            throw new UnauthorizedActionException();
         }
 
         return todoOptional.get();
@@ -29,8 +34,9 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public Todo editTodo(long id, Todo todoPayload) throws NotFoundException {
-        Todo todoOriginal = this.getTodo(id);
+    public Todo editTodo(long userId, long id, Todo todoPayload) throws NotFoundException,UnauthorizedActionException {
+        Todo todoOriginal = this.getTodo(userId, id);
+
 
         todoOriginal.setText(todoPayload.getText());
         todoOriginal.setCompleted(todoPayload.getIsCompleted());
@@ -38,14 +44,14 @@ public class TodoService {
         return todoRepository.update(todoOriginal);
     }
 
-    public void deleteTodo(long id) throws NotFoundException {
-        Todo todo = this.getTodo(id);
+    public void deleteTodo(long userId,long id) throws NotFoundException,UnauthorizedActionException {
+        Todo todo = this.getTodo(userId, id);
 
         todoRepository.delete(todo);
     }
 
-    public List<Todo> getTodos() {
-        return (List<Todo>) todoRepository.findAll();
+    public List<Todo> getTodos(long userId) {
+        return todoRepository.findByUserIdOrderByIdDesc(userId);
     }
 
 }

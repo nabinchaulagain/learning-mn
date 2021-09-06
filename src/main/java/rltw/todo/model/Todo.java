@@ -23,6 +23,18 @@ public class Todo {
     @Column(name="is_completed")
     private boolean isCompleted;
 
+    @Column(name="user_id")
+    private long userId;
+
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     public long getId() {
         return id;
     }
