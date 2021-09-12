@@ -1,0 +1,21 @@
+name: Deploy master branch to Heroku.
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_AUTH_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install heroku
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+      - name: Login to heroku containers repo
+        run: docker login --username=${{ secrets.HEROKU_EMAIL }} --password=${{ secrets.HEROKU_AUTH_KEY }} registry.heroku.com
+      - name: Build image and push it
+        run: heroku container:push --app=${{ secrets.APP_NAME }} web
+      - name: Release docker image and deploy
+        run: heroku container:release --app=${{ secrets.APP_NAME }} web
